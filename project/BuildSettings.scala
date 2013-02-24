@@ -25,7 +25,8 @@ object BuildSettings {
       "-language:postfixOps",
       "-language:implicitConversions",
       "-Xlog-reflective-calls",
-      "-Ywarn-adapted-args"
+      "-Ywarn-adapted-args",
+      "-Ylog-classpath"
     )
   )
 

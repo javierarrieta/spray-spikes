@@ -27,14 +27,14 @@ object Build extends Build {
 
   lazy val examples = Project("examples", file("examples"))
     .aggregate(myfirstspray)
-    .settings(settings: _*)
+    .settings(basicSettings: _*)
 
   lazy val myfirstspray = Project("my-first-spray", file("examples/my-first-spray"))
     .settings(exampleSettings: _*)
     .settings(libraryDependencies ++=
-      compile(akkaActor,sprayCan,sprayRouting) ++
+      compile(akkaActor, sprayCan, sprayRouting) ++
       test(specs2) ++
-      runtime(akkaSlf4j, logback)
+      provided(akkaSlf4j, logback)
     )
 
 }

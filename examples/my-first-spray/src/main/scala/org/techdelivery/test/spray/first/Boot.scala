@@ -2,6 +2,7 @@ package org.techdelivery.test.spray.first
 
 import akka.actor.Props
 import spray.can.server.SprayCanHttpServerApp
+import org.techdelivery.test.spray.first.resource.ExampleServiceActor
 
 object Boot extends App with SprayCanHttpServerApp {
   

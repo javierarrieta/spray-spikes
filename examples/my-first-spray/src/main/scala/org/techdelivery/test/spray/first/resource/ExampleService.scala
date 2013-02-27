@@ -1,9 +1,15 @@
-package org.techdelivery.test.spray.first
+package org.techdelivery.test.spray.first.resource
 
 import akka.actor.Actor
 import spray.routing.HttpService
 import spray.http.HttpResponse
 import spray.http.HttpHeaders.RawHeader
+import spray.http.HttpEntity.apply
+import spray.http.StatusCode.int2StatusCode
+import spray.routing.Directive.pimpApply
+import spray.routing.directives.CompletionMagnet.fromHttpResponse
+import org.techdelivery.test.spray.first.model.Person
+import org.techdelivery.test.spray.first.marshal.ExampleMarshaller._
 
 class ExampleServiceActor extends Actor with ExampleService {
 
@@ -22,7 +28,13 @@ trait ExampleService extends HttpService {
   val route = {
     get {
       path("ping") {
-        complete(HttpResponse(201,"PONG!",List(RawHeader("a","b"))))
+        complete(HttpResponse(200,"PONG!",List(RawHeader("a","b"))))
+      }
+    } ~
+    path("person"/LongNumber) {id =>
+      get {
+        val person: Person = Person(id,"Name","Surname")
+        complete(person)
       }
     }
   }

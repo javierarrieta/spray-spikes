@@ -32,7 +32,7 @@ object Build extends Build {
   lazy val myfirstspray = Project("my-first-spray", file("examples/my-first-spray"))
     .settings(exampleSettings: _*)
     .settings(libraryDependencies ++=
-      compile(akkaActor, sprayCan, sprayRouting) ++
+      compile(akkaActor, sprayCan, sprayRouting, sprayJson) ++
       test(specs2) ++
       provided(akkaSlf4j, logback)
     )

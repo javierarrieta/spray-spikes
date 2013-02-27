@@ -9,5 +9,5 @@ object Boot extends App with SprayCanHttpServerApp {
   val service = system.actorOf(Props[ExampleServiceActor], "demo-service")
 
   // create a new HttpServer using our handler and tell it where to bind to
-  newHttpServer(service) ! Bind(interface = "localhost", port = 8080)
+  newHttpServer(service) ! Bind(interface = "localhost", port = 9080)
 }

@@ -2,6 +2,8 @@ package org.techdelivery.test.spray.first
 
 import akka.actor.Actor
 import spray.routing.HttpService
+import spray.http.HttpResponse
+import spray.http.HttpHeaders.RawHeader
 
 class ExampleServiceActor extends Actor with ExampleService {
 
@@ -20,7 +22,7 @@ trait ExampleService extends HttpService {
   val route = {
     get {
       path("ping") {
-        complete("PONG!")
+        complete(HttpResponse(201,"PONG!",List(RawHeader("a","b"))))
       }
     }
   }

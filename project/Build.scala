@@ -37,4 +37,12 @@ object Build extends Build {
       provided(akkaSlf4j, logback)
     )
 
+  lazy val httpexample = Project("http-server-example", file("examples/http-server-example"))
+    .settings(exampleSettings: _*)
+    .settings(libraryDependencies ++=
+      compile(akkaActor, sprayCan, sprayJson) ++
+      test(specs2) ++
+      provided(akkaSlf4j, logback)
+    )
+
 }

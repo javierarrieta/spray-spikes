@@ -2,6 +2,8 @@ import sbt._
 import Keys._
 import java.text.SimpleDateFormat
 import java.util.Date
+import sbtassembly.Plugin._
+import AssemblyKeys._
 
 object BuildSettings {
   val VERSION = "0.0.1"
@@ -29,6 +31,6 @@ object BuildSettings {
     )
   )
 
-  lazy val exampleSettings = basicSettings 
+  lazy val exampleSettings = basicSettings ++ assemblySettings
 
 }

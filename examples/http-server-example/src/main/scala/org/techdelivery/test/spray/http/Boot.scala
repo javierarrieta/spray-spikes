@@ -21,5 +21,5 @@ object Boot extends App with SprayCanHttpServerApp {
   val ioBridge = IOExtension(system).ioBridge()
   val httpServer = system.actorOf(Props(new HttpServer(ioBridge, PerConnectionHandler(messageCreator), ServerSettings())), "http-server")
   // create a new HttpServer using our handler and tell it where to bind to
-  httpServer ! Bind(interface = "localhost", port = 9080)
+  httpServer ! Bind(interface = "0.0.0.0", port = 9080)
 }

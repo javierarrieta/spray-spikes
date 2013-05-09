@@ -45,4 +45,12 @@ object Build extends Build {
       provided(akkaSlf4j, logback)
     )
 
+  lazy val httpproxy = Project("http-proxy", file("examples/http-proxy"))
+    .settings(exampleSettings: _*)
+    .settings(libraryDependencies ++=
+      compile(akkaActor, sprayCan, sprayJson) ++
+      test(specs2) ++
+      provided(akkaSlf4j, logback)
+   ) 
+
 }

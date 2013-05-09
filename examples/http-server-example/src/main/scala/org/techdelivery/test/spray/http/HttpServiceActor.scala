@@ -25,7 +25,7 @@ class HttpServiceActor extends Actor with SprayActorLogging {
       sender ! HttpResponse(entity = "pong")
       
     case HttpRequest(POST, "/file",headers,body,_) =>
-      //log.info( "File uploaded " + body.buffer.length + " bytes :"+ uuid )
+      log.info( "File uploaded " + body.buffer.length + " bytes :"+ uuid )
 
       sender ! HttpResponse( status = 201)
       

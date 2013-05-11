@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
 
-  val sprayVersion = "1.1-M7"
+  val sprayVersion = "1.1-M7.1-openssl-M5"
   
   val resolutionRepos = Seq(
     "spray repo" at "http://repo.spray.io/"

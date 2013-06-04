@@ -9,13 +9,17 @@ import spray.io.IOExtension
 import spray.io.PerConnectionHandler
 import spray.can.server.ServerSettings
 import reactivemongo.api.MongoDriver
+import com.typesafe.config.ConfigFactory
+import scala.collection.JavaConverters._
 
 object MongoSpikeApp extends App with SprayCanHttpServerApp {
+  
+  val conf = ConfigFactory.load
   
   implicit val ioBridge = IOExtension(system).ioBridge() 
   
   implicit val mongo = new MongoDriver
-  val connection = mongo.connection(List("192.168.0.68"))
+  val connection = mongo.connection(conf.getStringList("mongo.servers").asScala.toSeq)
   
   def messageCreator(ctx:PipelineContext) : ActorRef = {
     system.actorOf(Props( new MongoResource(connection)))

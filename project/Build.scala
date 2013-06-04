@@ -53,4 +53,12 @@ object Build extends Build {
       provided(akkaSlf4j, logback)
    ) 
 
+  lazy val mongospike = Project("mongo-spike", file("examples/mongo-spike"))
+    .settings(exampleSettings: _*)
+    .settings(libraryDependencies ++=
+      compile(akkaActor, sprayCan, sprayJson, rMongo) ++
+      test(specs2) ++
+      provided(akkaSlf4j, logback)
+   ) 
+
 }

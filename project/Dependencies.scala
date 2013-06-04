@@ -5,7 +5,8 @@ object Dependencies {
   val sprayVersion = "1.1-M7.1-openssl-M5"
   
   val resolutionRepos = Seq(
-    "spray repo" at "http://repo.spray.io/"
+    "spray repo" at "http://repo.spray.io/",
+    "typesafe repo" at "http://repo.typesafe.com/typesafe/releases"
   )
 
   def compile   (deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
@@ -19,7 +20,7 @@ object Dependencies {
   val sprayUtil     = "io.spray"                                %   "spray-util"                  % sprayVersion
   val sprayHttp     = "io.spray"                                %   "spray-http"                  % sprayVersion
   val sprayHttpx    = "io.spray"                                %   "spray-httpx"                 % sprayVersion
-  val sprayClient   = "io.spray"				%   "spray-client"                % sprayVersion
+  val sprayClient   = "io.spray"                                %   "spray-client"                % sprayVersion
   val scalaReflect  = "org.scala-lang"                          %   "scala-reflect"               % "2.10.0"
   val akkaActor     = "com.typesafe.akka"                       %%  "akka-actor"                  % "2.1.0"
   val akkaSlf4j     = "com.typesafe.akka"                       %%  "akka-slf4j"                  % "2.1.0"
@@ -36,5 +37,6 @@ object Dependencies {
   val logback       = "ch.qos.logback"                          %   "logback-classic"             % "1.0.9"
   val mimepull      = "org.jvnet.mimepull"                      %   "mimepull"                    % "1.9.1"
   val pegdown       = "org.pegdown"                             %   "pegdown"                     % "1.2.1"
-  val liftJson      = "net.liftweb"                             %%  "lift-json"                   % "2.5-M4"
+  val liftJson      = "net.liftweb"                             %%  "lift-json" 
+  val rMongo        = "org.reactivemongo"                       %% "reactivemongo"                % "0.9"     // % "2.5-M4"
 }

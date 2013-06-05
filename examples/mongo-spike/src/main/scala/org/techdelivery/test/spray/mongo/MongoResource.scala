@@ -11,6 +11,10 @@ import spray.http.HttpResponse
 import scala.util.Success
 import scala.util.Failure
 import reactivemongo.api.MongoConnection
+import org.techdelivery.test.spray.mongo.entity.Person
+import org.techdelivery.test.spray.mongo.entity.mappings._
+import spray.json._
+import DefaultJsonProtocol._
 
 class MongoResource(connection: MongoConnection) extends Actor with SprayActorLogging {
 
@@ -22,11 +26,11 @@ class MongoResource(connection: MongoConnection) extends Actor with SprayActorLo
       val collection = db.collection("person")
       val filter = BSONDocument()
       val fields = BSONDocument("first_name" -> 1, "last_name" -> 1)
-      val cursor = collection.find(filter).cursor[BSONDocument]
+      val cursor = collection.find(filter).cursor[Person]
       val response = cursor.toList
       response onComplete {
         case Success(list) => {
-          val result = BSONDocument.pretty(BSONDocument("list" -> list))
+          val result = list.toJson
           origin ! HttpResponse( status = 200, entity = result)
         }
         case Failure(t) => origin ! HttpResponse( status = 500, entity = t.getLocalizedMessage())

@@ -22,7 +22,7 @@ class MongoResource(connection: MongoConnection) extends Actor with SprayActorLo
       val collection = db.collection("person")
       val filter = BSONDocument()
       val fields = BSONDocument("first_name" -> 1, "last_name" -> 1)
-      val cursor = collection.find(filter,fields).cursor[BSONDocument]
+      val cursor = collection.find(filter).cursor[BSONDocument]
       val response = cursor.toList
       response onComplete {
         case Success(list) => {

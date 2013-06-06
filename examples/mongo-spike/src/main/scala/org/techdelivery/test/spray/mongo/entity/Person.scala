@@ -9,6 +9,8 @@ import reactivemongo.bson.Producer.nameValue2Producer
 import reactivemongo.bson.BSONDocumentReader
 import spray.json.DefaultJsonProtocol
 
+case class NewPerson(first_name: String, last_name: String)
+
 case class Person(id: String, first_name: String, last_name: String)
 
 object mappings {
@@ -27,9 +29,23 @@ object mappings {
 	    )
 	  }
 	}
+
+	implicit object NewPersonMapper extends BSONDocumentWriter[NewPerson] with BSONDocumentReader[NewPerson] {
+	  def write(person: NewPerson) : BSONDocument = BSONDocument(
+	    "first_name" -> BSONString(person.first_name),
+	    "last_name" -> BSONString(person.last_name)
+	  )
+	  def read(doc: BSONDocument) : NewPerson = {
+	    new NewPerson(
+	      doc.getAs[BSONString]("first_name").map(_.value).get,
+	      doc.getAs[BSONString]("last_name").map(_.value).get
+	    )
+	  }
+	}
 }
 
 object PersonProtocol extends DefaultJsonProtocol {
   implicit val personFormat = jsonFormat3(Person)
   implicit val personListFormat = listFormat[Person]
+  implicit val newPersonFormat = jsonFormat2(NewPerson)
 }

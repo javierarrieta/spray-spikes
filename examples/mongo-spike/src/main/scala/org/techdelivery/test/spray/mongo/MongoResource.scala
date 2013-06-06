@@ -11,8 +11,9 @@ import spray.http.HttpResponse
 import scala.util.Success
 import scala.util.Failure
 import reactivemongo.api.MongoConnection
-import org.techdelivery.test.spray.mongo.entity.Person
+import org.techdelivery.test.spray.mongo.entity.{PersonProtocol, Person}
 import org.techdelivery.test.spray.mongo.entity.mappings._
+import org.techdelivery.test.spray.mongo.entity.PersonProtocol._
 import spray.json._
 import DefaultJsonProtocol._
 
@@ -30,8 +31,7 @@ class MongoResource(connection: MongoConnection) extends Actor with SprayActorLo
       val response = cursor.toList
       response onComplete {
         case Success(list) => {
-          val result = list.toJson
-          origin ! HttpResponse( status = 200, entity = result)
+          origin ! HttpResponse( status = 200, entity = list.toJson.toString())
         }
         case Failure(t) => origin ! HttpResponse( status = 500, entity = t.getLocalizedMessage())
       }

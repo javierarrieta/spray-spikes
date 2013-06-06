@@ -21,9 +21,9 @@ object mappings {
 	  )
 	  def read(doc: BSONDocument) : Person = {
 	    new Person(
-	      doc.get("_id").get.toString(),
-	      doc.get("first_name").get.toString(),
-	      doc.get("last_name").get.toString()
+	      doc.getAs[BSONObjectID]("_id").get.stringify,
+	      doc.getAs[BSONString]("first_name").map(_.value).get,
+	      doc.getAs[BSONString]("last_name").map(_.value).get
 	    )
 	  }
 	}
@@ -31,4 +31,5 @@ object mappings {
 
 object PersonProtocol extends DefaultJsonProtocol {
   implicit val personFormat = jsonFormat3(Person)
+  implicit val personListFormat = listFormat[Person]
 }

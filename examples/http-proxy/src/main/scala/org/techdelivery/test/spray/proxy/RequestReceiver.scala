@@ -1,26 +1,22 @@
 package org.techdelivery.test.spray.proxy
 
-import akka.actor.Actor
-import akka.actor.Props
+import akka.actor.{ActorLogging, Actor, ActorRef}
 import spray.http.HttpRequest
 import spray.http.HttpResponse
-import spray.util.SprayActorLogging
-import akka.actor.ActorRef
-import spray.can.client.HttpClient._
-import spray.can.client.HttpDialog
 import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.Success
 import scala.util.Failure
-import scala.util.Try
+import spray.client.HttpDialog
+import spray.can.Http
 
-class RequestReceiver(client: ActorRef) extends Actor with SprayActorLogging {
+class RequestReceiver extends Actor with ActorLogging {
 
   def host = "www.google.com"
   def port = 80
-  val httpClient = client
+  val conn = Http.Connect(host, port)
   def receive = {
     case request: HttpRequest => {
-      log.info(request.uri)
+      log.info(request.uri.toString())
       fetchRequest(request, sender)
     }
     case _ => { request: Unit =>
@@ -30,7 +26,7 @@ class RequestReceiver(client: ActorRef) extends Actor with SprayActorLogging {
   }
 
   def fetchRequest(request: HttpRequest, sender: ActorRef): Unit = {
-    val dialog = HttpDialog(httpClient, host, port)
+    val dialog = HttpDialog(conn)
     dialog.send(request).end.onComplete { result =>
       result match {
         case Success(response) => {

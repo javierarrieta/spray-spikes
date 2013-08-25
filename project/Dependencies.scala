@@ -2,11 +2,14 @@ import sbt._
 
 object Dependencies {
 
-  val sprayVersion = "1.1-M7.1-openssl-M5"
+  val sprayVersion = "1.2-20130822"
+  val akkaVersion = "2.2.0"
   
   val resolutionRepos = Seq(
     "spray repo" at "http://repo.spray.io/",
-    "typesafe repo" at "http://repo.typesafe.com/typesafe/releases"
+    "spray nighties" at "http://nightlies.spray.io/",
+    "typesafe repo" at "http://repo.typesafe.com/typesafe/releases",
+    "Sonatype Snapshots" at "http://oss.sonatype.org/content/repositories/snapshots/"
   )
 
   def compile   (deps: ModuleID*): Seq[ModuleID] = deps map (_ % "compile")
@@ -22,9 +25,9 @@ object Dependencies {
   val sprayHttpx    = "io.spray"                                %   "spray-httpx"                 % sprayVersion
   val sprayClient   = "io.spray"                                %   "spray-client"                % sprayVersion
   val scalaReflect  = "org.scala-lang"                          %   "scala-reflect"               % "2.10.0"
-  val akkaActor     = "com.typesafe.akka"                       %%  "akka-actor"                  % "2.1.0"
-  val akkaSlf4j     = "com.typesafe.akka"                       %%  "akka-slf4j"                  % "2.1.0"
-  val akkaTestKit   = "com.typesafe.akka"                       %%  "akka-testkit"                % "2.1.0"
+  val akkaActor     = "com.typesafe.akka"                       %%  "akka-actor"                  % akkaVersion
+  val akkaSlf4j     = "com.typesafe.akka"                       %%  "akka-slf4j"                  % akkaVersion
+  val akkaTestKit   = "com.typesafe.akka"                       %%  "akka-testkit"                % akkaVersion
   val logging       = "com.typesafe"                            %% "scalalogging-slf4j"           % "1.0.1"
   val parboiled     = "org.parboiled"                           %%  "parboiled-scala"             % "1.1.4"
   val shapeless     = "com.chuusai"                             %%  "shapeless"                   % "1.2.3"
@@ -39,5 +42,5 @@ object Dependencies {
   val mimepull      = "org.jvnet.mimepull"                      %   "mimepull"                    % "1.9.1"
   val pegdown       = "org.pegdown"                             %   "pegdown"                     % "1.2.1"
   val liftJson      = "net.liftweb"                             %%  "lift-json" 
-  val rMongo        = "org.reactivemongo"                       %% "reactivemongo"                % "0.9"     // % "2.5-M4"
+  val rMongo        = "org.reactivemongo"                       %% "reactivemongo"                % "0.10-SNAPSHOT"     // % "2.5-M4"
 }
